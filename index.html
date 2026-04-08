@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday 💖</title>
+
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  text-align: center;
+  font-family: sans-serif;
+  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+  color: white;
+}
+
+.container {
+  margin-top: 120px;
+  z-index: 10;
+  position: relative;
+}
+
+button {
+  padding: 15px 30px;
+  font-size: 18px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+#surprise {
+  display: none;
+  margin-top: 30px;
+}
+
+.gift {
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 20px;
+  display: inline-block;
+}
+
+/* หัวใจ */
+.heart {
+  position: absolute;
+  color: #ff4d6d;
+  font-size: 20px;
+  animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(100vh); opacity: 1; }
+  100% { transform: translateY(-10vh); opacity: 0; }
+}
+
+/* แมว */
+.cat {
+  position: absolute;
+  width: 60px;
+  animation: floatCat 10s linear infinite;
+}
+
+@keyframes floatCat {
+  0% { transform: translateY(100vh) rotate(0deg); }
+  100% { transform: translateY(-20vh) rotate(360deg); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>HBD นะคนเก่ง 💖</h1>
+  <p>มีของขวัญพิเศษให้ด้วยนะ...</p>
+  <button onclick="show()">กดรับของขวัญ 🎁</button>
+
+  <div id="surprise">
+    <h2>🎉 นี่คือของขวัญของเธอ 🎉</h2>
+
+    <div class="gift">
+      <h3>💌 บัตรหายงอน 1 ครั้ง 💌</h3>
+     
+    </div>
+
+  </div>
+</div>
+
+<script>
+function show(){
+  document.getElementById("surprise").style.display="block";
+}
+
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (15 + Math.random()*25) + "px";
+  document.body.appendChild(heart);
+
+  setTimeout(()=>{ heart.remove(); },6000);
+}
+
+function createCat(){
+  const cat = document.createElement("img");
+  cat.classList.add("cat");
+  cat.src = "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif";
+  cat.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(cat);
+
+  setTimeout(()=>{ cat.remove(); },10000);
+}
+
+setInterval(createHeart, 300);
+setInterval(createCat, 2000);
+</script>
+
+</body>
+</html>
