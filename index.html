@@ -2,6 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday 💖</title>
 
 <style>
@@ -12,12 +13,33 @@ body {
   font-family: sans-serif;
   background: linear-gradient(135deg,#ff9a9e,#fad0c4);
   color: white;
+  position: relative;
+}
+
+/* ชั้นตกแต่งพื้นหลัง */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .container {
-  margin-top: 120px;
-  z-index: 10;
+  margin-top: 100px;
   position: relative;
+  z-index: 2;
+  padding: 0 16px;
+}
+
+h1 {
+  font-size: 42px;
+  margin-bottom: 8px;
+  text-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+p {
+  font-size: 18px;
 }
 
 button {
@@ -26,9 +48,13 @@ button {
   border-radius: 20px;
   border: none;
   cursor: pointer;
+  margin-top: 15px;
+  background: white;
+  color: #ff4d6d;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
-#surprise {
+#surprise, #wish {
   display: none;
   margin-top: 30px;
 }
@@ -39,89 +65,203 @@ button {
   background: rgba(255,255,255,0.2);
   border-radius: 20px;
   display: inline-block;
+  backdrop-filter: blur(5px);
 }
 
-/* หัวใจ */
+/* เอฟเฟกต์รูป */
+.gift img {
+  max-width: 180px;
+}
+.gift img:hover {
+  transform: scale(1.08);
+  transition: 0.3s;
+}
+
+/* หัวใจลอย */
 .heart {
-  position: absolute;
+  position: fixed;
   color: #ff4d6d;
   font-size: 20px;
   animation: floatUp 6s linear infinite;
+  pointer-events: none;
+  z-index: 1;
 }
 
 @keyframes floatUp {
-  0% { transform: translateY(100vh); opacity: 1; }
-  100% { transform: translateY(-10vh); opacity: 0; }
+  0% { transform: translateY(100vh) scale(0.9); opacity: 1; }
+  100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
 }
 
-/* แมว */
-.cat {
-  position: absolute;
+/* แมวลอย */
+.cat-float {
+  position: fixed;
   width: 60px;
   animation: floatCat 10s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+  filter: drop-shadow(0 6px 10px rgba(0,0,0,0.18));
 }
 
 @keyframes floatCat {
-  0% { transform: translateY(100vh) rotate(0deg); }
-  100% { transform: translateY(-20vh) rotate(360deg); }
+  0% { transform: translateY(100vh) rotate(0deg) scale(1); opacity: 1; }
+  100% { transform: translateY(-20vh) rotate(360deg) scale(1.05); opacity: 0; }
+}
+
+/* แมวตกแต่งเต็มหน้า */
+.cat-deco {
+  position: fixed;
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  padding: 6px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.14);
+  pointer-events: none;
+  z-index: 1;
+  animation: bounceCat 3s ease-in-out infinite;
+}
+
+@keyframes bounceCat {
+  0%, 100% { transform: translateY(0px) rotate(-2deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+
+.sparkle {
+  position: fixed;
+  font-size: 18px;
+  animation: twinkle 2.5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.25; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.2); }
 }
 </style>
 </head>
 
 <body>
 
+<div class="bg-layer" id="bgLayer"></div>
+
 <div class="container">
-  <h1>HBD FORFUN <h1>
-  <p> ของขวัญที่ดีที่สุด.</p>
+  <h1>HBD nongmaysa 💖</h1>
+  <p>ของขวัญที่ดีที่สุด 🎁</p>
+
   <button onclick="show()">กดรับของขวัญ 🎁</button>
 
   <div id="surprise">
     <h2>🎉 นี่คือของขวัญของเธอ 🎉</h2>
 
- <div class="gift">
-  <h3>💌 บัตรหายงอน 1 ครั้ง 💌</h3>
+    <div class="gift">
+      <h3>💌 บัตรหายงอน 1 ครั้ง 💌</h3>
 
-  <img src="eis.png" style="
-    width:150px;
-    border-radius:15px;
-    margin:10px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.3);
-  ">
+      <img src="eis.png" style="
+        width:150px;
+        border-radius:15px;
+        margin:10px;
+        box-shadow:0 5px 15px rgba(0,0,0,0.3);
+      ">
 
- 
-</div>
-     
+      <p>ใช้ได้ตลอดชีวิต ห้ามหมดอายุ 😆</p>
+      <p>จาก: คนที่รักเธอที่สุด 🥺🐱</p>
     </div>
 
+    <br>
+    <button onclick="nextPage()">กดถัดไป 💌</button>
+  </div>
+
+  <div id="wish">
+    <h2>💖 คำอวยพร 💖</h2>
+    <p>ขอให้เธอมีความสุขมาก ๆ ในทุกวันเลยนะ 🥺</p>
+    <p>ขอให้ยิ้มเยอะ ๆ เจอแต่เรื่องดี ๆ 💕</p>
+    <p>ขอให้ทุกอย่างเป็นไปตามที่หวัง 🎂✨</p>
+    <p>และขอให้เราอยู่ด้วยกันไปนาน ๆ เลยนะ 🐱💖</p>
   </div>
 </div>
 
 <script>
+const catUrl = "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif";
+
 function show(){
-  document.getElementById("surprise").style.display="block";
+  document.getElementById("surprise").style.display = "block";
 }
 
+function nextPage(){
+  document.getElementById("wish").style.display = "block";
+}
+
+/* หัวใจลอย */
 function createHeart(){
   const heart = document.createElement("div");
   heart.classList.add("heart");
   heart.innerHTML = "💖";
   heart.style.left = Math.random() * 100 + "vw";
   heart.style.fontSize = (15 + Math.random()*25) + "px";
+  heart.style.animationDuration = (4 + Math.random()*3) + "s";
   document.body.appendChild(heart);
 
   setTimeout(()=>{ heart.remove(); },6000);
 }
 
+/* แมวลอย */
 function createCat(){
   const cat = document.createElement("img");
-  cat.classList.add("cat");
-  cat.src = "https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif";
+  cat.classList.add("cat-float");
+  cat.src = catUrl;
   cat.style.left = Math.random() * 100 + "vw";
+  cat.style.animationDuration = (8 + Math.random()*5) + "s";
+  cat.style.width = (50 + Math.random()*25) + "px";
   document.body.appendChild(cat);
 
-  setTimeout(()=>{ cat.remove(); },10000);
+  setTimeout(()=>{ cat.remove(); },11000);
 }
 
+/* ทำแมวตกแต่งเต็มหน้า */
+function addDecorCats() {
+  const positions = [
+    { left: "3vw", top: "4vh", size: 74 },
+    { left: "84vw", top: "5vh", size: 66 },
+    { left: "10vw", top: "78vh", size: 70 },
+    { left: "86vw", top: "78vh", size: 72 },
+    { left: "47vw", top: "2vh", size: 60 },
+    { left: "2vw", top: "42vh", size: 64 },
+    { left: "90vw", top: "44vh", size: 64 },
+    { left: "25vw", top: "12vh", size: 58 },
+    { left: "68vw", top: "14vh", size: 58 },
+    { left: "20vw", top: "84vh", size: 56 },
+    { left: "65vw", top: "84vh", size: 56 },
+    { left: "43vw", top: "84vh", size: 60 }
+  ];
+
+  positions.forEach((pos, i) => {
+    const img = document.createElement("img");
+    img.className = "cat-deco";
+    img.src = catUrl;
+    img.style.left = pos.left;
+    img.style.top = pos.top;
+    img.style.width = pos.size + "px";
+    img.style.height = pos.size + "px";
+    img.style.animationDelay = (i * 0.2) + "s";
+    document.getElementById("bgLayer").appendChild(img);
+  });
+
+  for (let i = 0; i < 10; i++) {
+    const s = document.createElement("div");
+    s.className = "sparkle";
+    s.textContent = "✦";
+    s.style.left = Math.random() * 100 + "vw";
+    s.style.top = Math.random() * 100 + "vh";
+    s.style.fontSize = (14 + Math.random() * 14) + "px";
+    s.style.animationDelay = (Math.random() * 2) + "s";
+    document.getElementById("bgLayer").appendChild(s);
+  }
+}
+
+/* loop เอฟเฟกต์ */
+addDecorCats();
 setInterval(createHeart, 300);
 setInterval(createCat, 2000);
 </script>
